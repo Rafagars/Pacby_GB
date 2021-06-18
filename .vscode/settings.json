@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "gamecharacter.h": "c",
+        "functions.h": "c",
+        "gb.h": "c"
+    }
+}

@@ -1,0 +1,1 @@
+/opt/gbdk/bin/lcc -o pacby.gb main.c src/functions.c src/gameCharacter.c src/Pacby.c src/Tiles.c src/Background1.c src/floormap_full_segments.c
