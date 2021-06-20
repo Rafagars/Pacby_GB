@@ -1,16 +1,48 @@
 #include <gb/gb.h>
 #include <gb/cgb.h>
+#include <gb/font.h>
 #include "inc/functions.h"
+#include "src/Pacby_tittleScreen_data.c"
+#include "src/Pacby_tittleScreen_map.c"
 
 UBYTE number_of_enemies = 0;
 
 void main(){
+
+    //Choose font
+    font_t min_font;
+
+    //Set Up the title screen
+    set_bkg_data(0, 122, Pacby_tittleScreen_data);
+    set_bkg_tiles(0, 0, 20, 18, Pacby_tittleScreen_map);
+
+    SHOW_BKG;
+    DISPLAY_ON;
+
+    waitpad(J_START);
+
+    fadeOut();
+
+    fadeIn();
+
+    disable_interrupts();
+
+    STAT_REG = 0x45;
+    LYC_REG = 0x08;  //Fire LCD Interrupt on the 8th scan line (just first row)
+    
+    //Set font
+    font_init();
+    min_font = font_load(font_min); //36 tile
+    font_set(min_font);
     
     //Initialize all the defaults variables needed to start the game
-    init();
     setupBackground();
+    set_win_tiles(0, 0, 20, 1, windowmap);
+    move_win(7, 0);
     set_sprite_data(0, 36, Pacby);
     setupPlayer();
+    init();
+    
 
     while(1){
         if((joypad() & J_LEFT)){
@@ -53,6 +85,7 @@ void main(){
                 set_sprite_prop(3, 0);
             }
             if(!reached_end){
+                //update the tiles while moving
                 updateCamera();
             }
 
@@ -67,7 +100,7 @@ void main(){
             onFloor = 0;
             // Jumping
             jumping = 1;
-            player.y -= 28;
+            player.y -= 32;
             // Jump sfx
             NR11_REG = 0x1F;
             NR12_REG = 0xF1;     
@@ -87,7 +120,18 @@ void main(){
         defaultSprite();
         moveCharacter(&player, player.x, player.y);
         checkFloor();
-        
+        if(number_of_enemies < max_enemies){
+            setupEnemies(&enemies[number_of_enemies], 160, 112);
+            number_of_enemies++;
+        }
+        for(INT8 i = 0; i < 2; i++){
+            if(walking > 0){
+                enemies[i].x -= 3;
+            } else {
+                enemies[i].x -= 1;
+            }
+            moveCharacter(&enemies[i], enemies[i].x, enemies[i].y );
+        }
         wait_vbl_done();
     }
 }

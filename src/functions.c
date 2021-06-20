@@ -13,8 +13,13 @@ UINT8 bkg_colscroll_counter = 0;
 UINT8 bkg_columns_scrolled = 0;
 const UINT8 stage_width = 152;
 UINT8 next_vram_location = 0;
-const unsigned char floorTile[1] = {0x01};
+const unsigned char floorTile[1] = {0x26};
 const UBYTE max_enemies = 2;
+
+unsigned char windowmap[] = 
+{
+    0x1A,0x0B,0x0D,0x0C,0x23,0x00,0x22,0x04,0x00,0x0D,0x19,0x13,0x18,0x2D,0x22,0x01,0x00,0x00,0x00,0x00
+};
 
 void interruptLCD(){
     HIDE_WIN;
@@ -135,19 +140,31 @@ void setupPlayer(){
 
 }
 
-void setupEnemies(GameCharacter* enemies, UINT8 x, UINT8 y){
-    enemies->x = x;
-    enemies->y = y;
-    enemies->width = 14;
-    enemies->height = 16;
+void setupEnemies(GameCharacter* enemy, UINT8 x, UINT8 y){
+    enemy->x = x;
+    enemy->y = y;
+    enemy->width = 14;
+    enemy->height = 16;
+
+    //Load Sprite for the enemy
+    set_sprite_tile(24, 24);
+    enemy->spriteID[0] = 24;
+    set_sprite_tile(26, 26);
+    enemy->spriteID[1] = 26;
+    set_sprite_tile(25, 25);
+    enemy->spriteID[2] = 25;
+    set_sprite_tile(27, 27);
+    enemy->spriteID[3] = 27;
+
+    moveCharacter(enemy, x, y);
 }
 
 void setupBackground(){
-    set_bkg_data(0, 5, Tiles);
+    set_bkg_data(37, 5, Tiles);
     set_bkg_tiles(0, 0, Background1Width, Background1Height, Background1);
 }
 
-
+// Check collision with the floor
 void checkFloor(){
     UINT16 indexTLx, indexTLy, tileIndexTL;
 
@@ -165,6 +182,7 @@ void checkFloor(){
     }
 }
 UINT8 i;
+//Update the tiles while moving
 void updateCamera(){
     bkg_position_offset += 2;
     bkg_colscroll_counter += 2;
@@ -182,7 +200,7 @@ void updateCamera(){
                 reached_end = 1;
             }
             next_vram_location++;
-            if(next_vram_location == 32){
+            if(next_vram_location == 32){ // Screen width limit
                 next_vram_location = 0;
             }
         }
@@ -190,7 +208,7 @@ void updateCamera(){
 }
 
 //Creates a fade out effect
-void fadeout(){
+void fadeOut(){
     for(i = 0; i < 4; i++){
         switch (i)
         {

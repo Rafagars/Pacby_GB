@@ -25,6 +25,8 @@ extern UINT8 next_vram_location;
 extern const unsigned char floorTile[1];
 extern const UBYTE max_enemies;
 
+extern unsigned char windowmap[];
+
 extern void interruptLCD();
 
 extern void turnOnSound();
@@ -48,6 +50,8 @@ extern void playerAnimation();
 extern void attackAnimation();
 
 extern void setupPlayer();
+
+extern void setupEnemies(GameCharacter* enemy, UINT8 x, UINT8 y);
 
 extern void setupBackground();
 
