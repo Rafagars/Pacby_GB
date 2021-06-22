@@ -6,6 +6,7 @@
 #include "src/Pacby_tittleScreen_map.c"
 
 UBYTE number_of_enemies = 0;
+UBYTE absorbing = 0;
 
 void main(){
 
@@ -25,10 +26,10 @@ void main(){
 
     fadeIn();
 
-    disable_interrupts();
+    //STAT_REG = 0x45;
+    //LYC_REG = 0x08;  //Fire LCD Interrupt on the 8th scan line (just first row)
 
-    STAT_REG = 0x45;
-    LYC_REG = 0x08;  //Fire LCD Interrupt on the 8th scan line (just first row)
+    disable_interrupts();
     
     //Set font
     font_init();
@@ -38,13 +39,13 @@ void main(){
     //Initialize all the defaults variables needed to start the game
     setupBackground();
     set_win_tiles(0, 0, 20, 1, windowmap);
-    move_win(7, 0);
+    move_win(7, 128);
     set_sprite_data(0, 36, Pacby);
     setupPlayer();
     init();
-    
 
     while(1){
+        SHOW_WIN;
         if((joypad() & J_LEFT)){
             walking++;
             if (player.x < 9){
@@ -94,13 +95,14 @@ void main(){
             playerAnimation();   
         }
         if((joypad() & J_B)){
+            attacking = 1;
             attackAnimation();
         } 
         if((joypad() & J_A) && jumping == 0){
             onFloor = 0;
             // Jumping
             jumping = 1;
-            player.y -= 32;
+            player.y -= 36;
             // Jump sfx
             NR11_REG = 0x1F;
             NR12_REG = 0xF1;     
@@ -118,19 +120,26 @@ void main(){
             walking = 0;
         }
         defaultSprite();
-        moveCharacter(&player, player.x, player.y);
-        checkFloor();
+        movePlayerCharacter(&player, player.x, player.y);
+        checkFloor(player.x, player.y + 8);
         if(number_of_enemies < max_enemies){
             setupEnemies(&enemies[number_of_enemies], 160, 112);
             number_of_enemies++;
         }
         for(INT8 i = 0; i < 2; i++){
-            if(walking > 0){
+            if(walking > 0 || attacking > 0){
                 enemies[i].x -= 3;
             } else {
                 enemies[i].x -= 1;
             }
             moveCharacter(&enemies[i], enemies[i].x, enemies[i].y );
+            if(attacking > 0){
+                if(flip < 1){
+                    absorbing = player.x + 8 >= enemies[i].x;
+                } else {
+                    absorbing = player.x - 8 <= enemies[i].x;
+                }
+            }
         }
         wait_vbl_done();
     }

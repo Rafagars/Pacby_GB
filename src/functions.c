@@ -4,6 +4,7 @@ UBYTE reached_end = 0;
 const UBYTE spritesize = 8;
 int walking = 0;
 UBYTE flip = 0;
+UBYTE attacking = 0;
 UBYTE jumping = 0;
 UBYTE onFloor = 1;
 const UINT8 gravity = 4;
@@ -18,7 +19,7 @@ const UBYTE max_enemies = 2;
 
 unsigned char windowmap[] = 
 {
-    0x1A,0x0B,0x0D,0x0C,0x23,0x00,0x22,0x04,0x00,0x0D,0x19,0x13,0x18,0x2D,0x22,0x01,0x00,0x00,0x00,0x00
+    0x1A,0x22,0x04,0x00,0x00,0x0D,0x19,0x13,0x18,0x1D,0x22,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
 
 void interruptLCD(){
@@ -37,7 +38,7 @@ void turnOffSound(){
 
 //Initialize all the default variables needed to start the game
 void init(){
-    //SHOW_WIN;
+    SHOW_WIN;
     SHOW_BKG; 
     SHOW_SPRITES;
     DISPLAY_ON;
@@ -59,7 +60,7 @@ UBYTE checkCollision(GameCharacter* one, GameCharacter* two){
     return(one->x >= two->x && one->x <= two->x + two->width) && (one->y >= two->y && one->y <= two->y + two->height) || (two->x >= one->x && two->x <= one->x + one->width) && (two->y >= one->y && two->y <= one->y + one->height);
 }
 
-void moveCharacter(GameCharacter* character, UINT8 x, UINT8 y){
+void movePlayerCharacter(GameCharacter* character, UINT8 x, UINT8 y){
     if (flip == 0){
         move_sprite(character->spriteID[0], x, y);
         move_sprite(character->spriteID[1], x + spritesize, y);
@@ -72,6 +73,13 @@ void moveCharacter(GameCharacter* character, UINT8 x, UINT8 y){
         move_sprite(character->spriteID[2], x + spritesize, y + spritesize);
         move_sprite(character->spriteID[3], x, y + spritesize);
     }
+}
+
+void moveCharacter(GameCharacter* character, UINT8 x, UINT8 y){
+        move_sprite(character->spriteID[0], x, y);
+        move_sprite(character->spriteID[1], x + spritesize, y);
+        move_sprite(character->spriteID[2], x, y + spritesize);
+        move_sprite(character->spriteID[3], x + spritesize, y + spritesize);
 }
 
 void defaultSprite(){
@@ -92,14 +100,14 @@ void flipSprite(GameCharacter* character){
 void playerAnimation(){       
         if(jumping == 0){
             if(walking == 0 || walking == 2){
-                moveCharacter(&player, player.x, player.y);
+                movePlayerCharacter(&player, player.x, player.y);
                 defaultSprite();
             } else if (walking == 1){
-                moveCharacter(&player, player.x, player.y - 1);
+                movePlayerCharacter(&player, player.x, player.y - 1);
                 set_sprite_tile(1, 4);
                 set_sprite_tile(3, 5);
             } else {
-                moveCharacter(&player, player.x, player.y - 1);
+                movePlayerCharacter(&player, player.x, player.y - 1);
                 set_sprite_tile(1, 6);
                 set_sprite_tile(3, 7);
             }
@@ -136,7 +144,7 @@ void setupPlayer(){
     set_sprite_tile(3, 3);
     player.spriteID[3] = 3;
 
-    moveCharacter(&player, player.x, player.y);
+    movePlayerCharacter(&player, player.x, player.y);
 
 }
 
@@ -165,15 +173,15 @@ void setupBackground(){
 }
 
 // Check collision with the floor
-void checkFloor(){
+void checkFloor(UINT8 newPlayerX, UINT8 newPlayerY){
     UINT16 indexTLx, indexTLy, tileIndexTL;
 
-    indexTLx = (player.x + bkg_position_offset)/ 8;
-    indexTLy = (player.y)/ 8;
+    indexTLx = (newPlayerX - 8 + bkg_position_offset)/ 8;
+    indexTLy = (newPlayerY - 16)/ 8;
     tileIndexTL = Background1Width * indexTLy + indexTLx;
 
     if (Background1[tileIndexTL] == floorTile[0] || player.y == 112){
-        player.y = (indexTLy * 8);
+        //player.y = (indexTLy * 8) - 8;
         onFloor = 1;
         jumping = 0;
     } else {
