@@ -1,12 +1,15 @@
 #include "../inc/functions.h"
 
+UINT8 lives = 3;
+UINT8 swap;
 UBYTE reached_end = 0;
 const UBYTE spritesize = 8;
-int walking = 0;
+UINT8 walking = 0;
 UBYTE flip = 0;
 UBYTE attacking = 0;
 UBYTE jumping = 0;
 UBYTE onFloor = 1;
+UINT8 floor_height = 112;
 const UINT8 gravity = 4;
 const UINT8 max_speed = 24;
 UINT8 bkg_position_offset = 0;
@@ -14,12 +17,12 @@ UINT8 bkg_colscroll_counter = 0;
 UINT8 bkg_columns_scrolled = 0;
 const UINT8 stage_width = 152;
 UINT8 next_vram_location = 0;
-const unsigned char floorTile[1] = {0x26};
+const unsigned char floorTile[1] = {0x28};
 const UBYTE max_enemies = 2;
 
 unsigned char windowmap[] = 
 {
-    0x1A,0x22,0x04,0x00,0x00,0x0D,0x19,0x13,0x18,0x1D,0x22,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
+    0x1A,0x22,0x04,0x00,0x00,0x0D,0x19,0x13,0x18,0x1D,0x22,0x01,0x01,0x00,0x00,0x01,0x01,0x01,0x01,0x01
 };
 
 void interruptLCD(){
@@ -130,9 +133,10 @@ void attackAnimation(){
 void setupPlayer(){
     player.x = 40;
     player.vel_x = 0;
-    player.y = 112;
+    player.vel_y = 0;
+    player.y = 104;
     player.width = 14;
-    player.height = 14;
+    player.height = 16;
 
     //load player's sprites
     set_sprite_tile(0, 0);
@@ -152,7 +156,7 @@ void setupEnemies(GameCharacter* enemy, UINT8 x, UINT8 y){
     enemy->x = x;
     enemy->y = y;
     enemy->width = 14;
-    enemy->height = 16;
+    enemy->height = 14;
 
     //Load Sprite for the enemy
     set_sprite_tile(24, 24);
@@ -168,7 +172,7 @@ void setupEnemies(GameCharacter* enemy, UINT8 x, UINT8 y){
 }
 
 void setupBackground(){
-    set_bkg_data(37, 5, Tiles);
+    set_bkg_data(37, 18, Tiles);
     set_bkg_tiles(0, 0, Background1Width, Background1Height, Background1);
 }
 
@@ -180,13 +184,12 @@ void checkFloor(UINT8 newPlayerX, UINT8 newPlayerY){
     indexTLy = (newPlayerY - 16)/ 8;
     tileIndexTL = Background1Width * indexTLy + indexTLx;
 
-    if (Background1[tileIndexTL] == floorTile[0] || player.y == 112){
-        //player.y = (indexTLy * 8) - 8;
+    if (Background1[tileIndexTL] == floorTile[0]){
         onFloor = 1;
-        jumping = 0;
+        floor_height = (indexTLy) * 8 + 8;
+        //player.y = floor_height - player.height + 8;
     } else {
         onFloor = 0;
-        jumping = 1;
     }
 }
 UINT8 i;
@@ -257,6 +260,7 @@ void fadeIn(){
 }
 
 void resetBackground(){
+    HIDE_WIN;
     move_bkg(0, 0); //Moves background to its default position
     HIDE_SPRITES;
 }
@@ -264,7 +268,7 @@ void resetBackground(){
 void pauseScreen(){
     resetBackground();
     turnOffSound();
-    //set_bkg_tiles(0, 0);
+    set_bkg_tiles(0, 0, PauseWidth, PauseHeight, Pause);
     performDelay(10);
     waitpad(J_START);
     performDelay(10);
@@ -275,6 +279,6 @@ void pauseScreen(){
 void gameOverScreen(){
     resetBackground();
     fadeIn();
-    //set_bkg_data();
-    //set_bkg_tiles();
+    set_bkg_data(37, 12, Tiles);
+    set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
 }

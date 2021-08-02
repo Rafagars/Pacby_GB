@@ -8,14 +8,19 @@
 #include "Tiles.h"
 #include "Background1.h"
 #include "floormap_full_segments.h"
+#include "Pause.h"
+#include "GameOverBackground.h"
 
+extern UINT8 lives;
+extern UINT8 swap;
 extern UBYTE reached_end;
 extern const UBYTE spritesize;
-extern int walking;
+extern UINT8 walking;
 extern UBYTE flip;
 extern UBYTE attacking;
 extern UBYTE jumping;
 extern UBYTE onFloor;
+extern UINT8 floor_height;
 extern const UINT8 gravity;
 extern const UINT8 max_speed;
 extern UINT8 bkg_position_offset;
@@ -25,7 +30,7 @@ extern const UINT8 stage_width;
 extern UINT8 next_vram_location; 
 extern const unsigned char floorTile[1];
 extern const UBYTE max_enemies;
-extern int xOrder;
+extern UINT16 indexTLx, indexTLy, tileIndexTL;
 
 extern unsigned char windowmap[];
 
