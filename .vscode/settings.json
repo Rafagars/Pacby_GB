@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "functions.h": "c",
+        "windowlayer.h": "c",
+        "gb.h": "c",
+        "font.h": "c"
+    }
+}
