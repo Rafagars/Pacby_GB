@@ -10,6 +10,7 @@ extern uint8_t id;
 extern uint8_t timer;
 
 extern bool step;
+extern bool jumping;
 
 extern UBYTE checkCollision(Entity* one, Entity* two);
 extern void moveCharacter(Entity* character, uint8_t x, uint8_t y);

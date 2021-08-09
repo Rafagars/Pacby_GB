@@ -1,12 +1,14 @@
 #include "../inc/functions.h"
 
 bool game_on = TRUE;
+uint8_t floor_height = 105;
 bool reached_end = FALSE;
 uint8_t bkg_position_offset = 0;
 uint8_t bkg_colscroll_counter = 0;
 uint8_t bkg_columns_scrolled = 0;
 const uint8_t stage_width = 152;
 uint8_t next_vram_location = 0;
+const unsigned char floorTiles[3] = {0x28, 0x29, 0x2A};
 
 
 void interruptLCD(){
@@ -81,8 +83,6 @@ void joyHandler(){
             break;
         case J_DOWN:
             break;
-        case J_A:
-            break;
         case J_B:
             break;
         case J_START:
@@ -91,6 +91,15 @@ void joyHandler(){
             player.x += 0;
             frame = 0;
             break;    
+    }
+    if ((joypad() & J_A) && !jumping){
+        jumping = TRUE;
+        player.y -= 32;
+        // Jump sfx
+        NR11_REG = 0x1F;
+        NR12_REG = 0xF1;     
+        NR13_REG = 0x30;
+        NR14_REG = 0xC4;
     }
 }
 

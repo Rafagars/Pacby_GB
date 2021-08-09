@@ -27,6 +27,12 @@ void main(){
         }else if(player.x > 152){
             player.x = 152;
         }
+        if(jumping && player.y != floor_height){
+            player.y += 4;
+        } else {
+            player.y = floor_height;
+            jumping = FALSE;
+        }
         wait_vbl_done();
     }
 }

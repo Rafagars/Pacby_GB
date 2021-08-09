@@ -7,6 +7,7 @@ uint8_t id;
 uint8_t timer = 5;
 
 bool step = FALSE;
+bool jumping = FALSE;
 
 UBYTE checkCollision(Entity* one, Entity* two){
     return(one->x >= two->x && one->x <= two->x + two->w) && (one->y >= two->y && one->y <= two->y + two->h) || (two->x >= one->x && two->x <= one->x + one->w) && (two->y >= one->y && two->y <= one->y + one->h);
@@ -72,12 +73,17 @@ void animations(){
         set_sprite_prop(3, 0);
     }
     
-    set_sprite_tile(0, 0+n);
-    set_sprite_tile(1, 1+n);
-    set_sprite_tile(2, 2+n);
-    set_sprite_tile(3, 3+n);
-
-    
+    if(jumping){
+        set_sprite_tile(0, 8);
+        set_sprite_tile(1, 9);
+        set_sprite_tile(2, 10);
+        set_sprite_tile(3, 11);
+    } else {
+        set_sprite_tile(0, 0+n);
+        set_sprite_tile(1, 1+n);
+        set_sprite_tile(2, 2+n);
+        set_sprite_tile(3, 3+n);
+    }
 }
 
 void setupBackground(){
