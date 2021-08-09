@@ -22,6 +22,11 @@ void main(){
         joyHandler();
         animations();
         moveCharacter(&player, player.x, player.y);
+        if(player.x < 8){
+            player.x = 8;
+        }else if(player.x > 152){
+            player.x = 152;
+        }
         wait_vbl_done();
     }
 }

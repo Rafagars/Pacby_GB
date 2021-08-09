@@ -58,7 +58,7 @@ void flipSprite(Entity* character){
 void animations(){
     uint8_t n = 3*frame + frame;
     
-    performDelay(4);
+    performDelay(3);
     if(player.flip){
         flipSprite(&player);
     } else {

@@ -60,7 +60,7 @@ void joyHandler(){
             }
             break;
         case J_RIGHT:
-            if(player.x < 120 || reached_end){
+            if(player.x < 80 || (reached_end)){
                 player.x += 2;
             } else {
                 updateCamera();
