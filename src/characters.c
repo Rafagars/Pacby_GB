@@ -87,6 +87,6 @@ void animations(){
 }
 
 void setupBackground(){
-    set_bkg_data(37, 20, Tiles);
+    set_bkg_data(37, 21, Tiles);
     set_bkg_tiles(0, 0, Background1Width, Background1Height, Background1);
 }
