@@ -21,6 +21,7 @@ extern uint8_t bkg_columns_scrolled;
 extern const uint8_t stage_width;
 extern uint8_t next_vram_location;
 extern const unsigned char floorTiles[3];
+extern const unsigned char wallTiles[2];
 
 extern void interruptLCD();
 extern void turnOnSound();
@@ -35,6 +36,7 @@ extern void fadeOut();
 extern void fadeIn();
 extern void resetBackground();
 
+extern void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY);
 extern void updateCamera();
 
 extern void hitSound();

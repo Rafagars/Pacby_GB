@@ -9,6 +9,7 @@ uint8_t bkg_columns_scrolled = 0;
 const uint8_t stage_width = 152;
 uint8_t next_vram_location = 0;
 const unsigned char floorTiles[3] = {0x28, 0x29, 0x2A};
+const unsigned char wallTiles[2] = {0x2B, 0x2C};
 
 
 void interruptLCD(){
@@ -82,6 +83,9 @@ void joyHandler(){
         case J_UP:
             break;
         case J_DOWN:
+            if(player.y != 105){
+                player.y += 4;
+            }
             break;
         case J_B:
             break;
@@ -94,12 +98,29 @@ void joyHandler(){
     }
     if ((joypad() & J_A) && !jumping){
         jumping = TRUE;
-        player.y -= 32;
+        player.y -= 24;
         // Jump sfx
         NR11_REG = 0x1F;
         NR12_REG = 0xF1;     
         NR13_REG = 0x30;
         NR14_REG = 0xC4;
+    }
+}
+
+// Check collision with the floor
+void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY){
+    uint16_t indexTLx, indexTLy, tileIndexTL;
+
+    indexTLx = (newPlayerX + bkg_position_offset)/8;
+    indexTLy = (newPlayerY)/8;
+    tileIndexTL = Background1Width * indexTLy + indexTLx;
+
+    if(Background1[tileIndexTL] == floorTiles[0] || Background1[tileIndexTL] == floorTiles[1] || Background1[tileIndexTL] == floorTiles[2]){
+        floor_height = (indexTLy * 8) + 1;
+        jumping = FALSE;
+    } else {
+        jumping = TRUE;
+        floor_height = 105;
     }
 }
 
