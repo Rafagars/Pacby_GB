@@ -82,11 +82,6 @@ void joyHandler(){
             break;
         case J_UP:
             break;
-        case J_DOWN:
-            if(player.y != 105){
-                player.y += 4;
-            }
-            break;
         case J_B:
             break;
         case J_START:
@@ -97,7 +92,7 @@ void joyHandler(){
             break;    
     }
     if ((joypad() & J_A) && !jumping){
-        jumping = TRUE;
+        //jumping = TRUE;
         player.y -= 24;
         // Jump sfx
         NR11_REG = 0x1F;

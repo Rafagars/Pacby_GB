@@ -28,7 +28,8 @@ void main(){
             player.x = 152;
         }
         checkFloor(player.x, player.y);
-        if(jumping && player.y != floor_height){
+        if(player.y != floor_height || (joypad() & J_DOWN) && player.y != 105){
+            jumping = TRUE;
             player.y += 4;
         } else {
             player.y += 0; 
