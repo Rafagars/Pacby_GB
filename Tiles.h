@@ -53,7 +53,7 @@
 #define TilesSGBPal3c3 5344
 
 /* Gameboy Color palette 0 */
-#define TilesCGBPal0c0 6076
+#define TilesCGBPal0c0 31707
 #define TilesCGBPal0c1 14175
 #define TilesCGBPal0c2 8935
 #define TilesCGBPal0c3 64
