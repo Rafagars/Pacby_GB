@@ -9,7 +9,6 @@ uint8_t bkg_columns_scrolled = 0;
 const uint8_t stage_width = 152;
 uint8_t next_vram_location = 0;
 const unsigned char floorTiles[3] = {0x28, 0x29, 0x2A};
-const unsigned char wallTiles[2] = {0x2B, 0x2C};
 
 
 void interruptLCD(){
@@ -46,59 +45,45 @@ void performDelay(uint8_t numloops){
 }
 
 void joyHandler(){
-    switch(joypad())
-    {
-        case J_LEFT:
-            player.x -= 2;
-            player.flip = TRUE;
-            if(frame == 2){
-                step = TRUE;
-            } else if(frame == 0){
-                step = FALSE;
-            }
-            if(step){
-                frame--;
-            } else {
-                frame++;
-            }
-            break;
-        case J_RIGHT:
-            if(player.x < 80 || (reached_end)){
-                player.x += 2;
-            } else {
-                updateCamera();
-            }
-            player.flip = FALSE;
-            if(frame == 2){
-                step = TRUE;
-            } else if(frame == 0){
-                step = FALSE;
-            }
-            if(step){
-                frame--;
-            } else {
-                frame++;
-            }
-            break;
-        case J_UP:
-            break;
-        case J_B:
-            break;
-        case J_START:
-            break;
-        default:
-            player.x += 0;
-            frame = 0;
-            break;    
+
+    if(joypad() & J_LEFT){
+        player.x -= 2;
+        player.flip = TRUE;
+        if(frame == 2){
+            step = TRUE;
+        } else if(frame == 0){
+            step = FALSE;
+        }
+        if(step){
+            frame--;
+        } else {
+            frame++;
+        }
+    } else if(joypad() & J_RIGHT){
+        if(player.x < 80 || (reached_end)){
+            player.x += 2;
+        } else {
+            updateCamera();
+        }
+        player.flip = FALSE;
+        if(frame == 2){
+            step = TRUE;
+        } else if(frame == 0){
+            step = FALSE;
+        }
+        if(step){
+            frame--;
+        } else {
+            frame++;
+        }
+    } else {
+        frame = 0;
+        player.x += 0;
     }
     if ((joypad() & J_A) && !jumping){
         //jumping = TRUE;
         player.y -= 24;
-        // Jump sfx
-        NR11_REG = 0x1F;
-        NR12_REG = 0xF1;     
-        NR13_REG = 0x30;
-        NR14_REG = 0xC4;
+        jump_sfx();
     }
 }
 
@@ -163,6 +148,14 @@ void fadeOut(){
         }
         performDelay(10);
     }
+}
+
+void jump_sfx(){
+    // Jump sfx
+    NR11_REG = 0x1F;
+    NR12_REG = 0xF1;     
+    NR13_REG = 0x30;
+    NR14_REG = 0xC4;
 }
 
 void resetBackgrounds(){
