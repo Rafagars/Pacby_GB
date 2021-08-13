@@ -3,7 +3,7 @@
 #include "inc/functions.h"
 
 void main(){
-
+    
     //Choose font
     font_t ui_font;
 
@@ -13,7 +13,7 @@ void main(){
 
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
-    set_sprite_data(0, 12, Pacby_sprite);
+    set_sprite_data(0, 13, Pacby_sprite);
     setupPlayer();
     setupBackground();
     init();

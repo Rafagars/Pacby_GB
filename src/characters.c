@@ -8,6 +8,7 @@ uint8_t timer = 5;
 
 bool step = FALSE;
 bool jumping = FALSE;
+bool attack = FALSE;
 
 UBYTE checkCollision(Entity* one, Entity* two){
     return(one->x >= two->x && one->x <= two->x + two->w) && (one->y >= two->y && one->y <= two->y + two->h) || (two->x >= one->x && two->x <= one->x + one->w) && (two->y >= one->y && two->y <= one->y + one->h);

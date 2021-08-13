@@ -85,6 +85,11 @@ void joyHandler(){
         player.y -= 24;
         jump_sfx();
     }
+    if(joypad() & J_B){
+        attack = TRUE;
+        set_sprite_tile(0, 4);
+        set_sprite_tile(2, 12);
+    }
 }
 
 // Check collision with the floor
@@ -115,7 +120,8 @@ void updateCamera(){
             // Only continue to render the stage if there any stage left to render
             set_bkg_tiles(next_vram_location, 0, 1, 18, floormap_full[bkg_columns_scrolled]);
             for(i = 0; i < 18; i++){
-                Background1[(i * 32 )  + next_vram_location] =  floormap_full[bkg_columns_scrolled][i];
+                uint8_t tileIndex = (i * 32)  + next_vram_location; // It would be helpful for the apple placement
+                Background1[tileIndex] =  floormap_full[bkg_columns_scrolled][i];
             }
             bkg_columns_scrolled += 1;
             if(bkg_columns_scrolled + 12 == stage_width){
