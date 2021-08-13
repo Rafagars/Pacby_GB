@@ -9,8 +9,12 @@
 #include "windowLayer.h"
 #include "Pacby_sprites.h"
 #include "Tiles.h"
-#include "Background1.h"
+#include "BG1.h"
 #include "floormap_full_segments.h"
+
+#define camera_max_x ((BG1Width - 20) * 8)
+
+#define MIN(A,B) ((A)<(B)?(A):(B))
 
 extern bool game_on;
 extern uint8_t floor_height;
@@ -21,6 +25,9 @@ extern uint8_t bkg_columns_scrolled;
 extern const uint8_t stage_width;
 extern uint8_t next_vram_location;
 extern const unsigned char floorTiles[3];
+extern uint16_t camera_x, camera_y, old_camera_x, old_camera_y;
+extern uint8_t map_pos_x, map_pos_y, old_map_pos_x, old_map_pos_y;
+extern bool redraw;
 
 extern void interruptLCD();
 extern void turnOnSound();
@@ -37,6 +44,7 @@ extern void resetBackground();
 
 extern void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY);
 extern void updateCamera();
+extern void set_camera();
 
 extern void jump_sfx();
 extern void coinSound();

@@ -89,5 +89,16 @@ void animations(){
 
 void setupBackground(){
     set_bkg_data(37, 21, Tiles);
-    set_bkg_tiles(0, 0, Background1Width, Background1Height, Background1);
+    map_pos_x = map_pos_y = 0;
+    old_map_pos_x = old_map_pos_y = 255;
+    set_bkg_submap(map_pos_x, 0, 20, 18, BG1, BG1Width);
+
+    camera_x = camera_y = 0;
+    old_camera_x = camera_x;
+    old_camera_y = camera_y;
+
+    redraw = FALSE;
+
+    SCX_REG = camera_x;
+    SCY_REG = camera_y;
 }

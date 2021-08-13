@@ -2,14 +2,12 @@
 
 bool game_on = TRUE;
 uint8_t floor_height = 105;
-bool reached_end = FALSE;
-uint8_t bkg_position_offset = 0;
-uint8_t bkg_colscroll_counter = 0;
-uint8_t bkg_columns_scrolled = 0;
 const uint8_t stage_width = 152;
-uint8_t next_vram_location = 0;
 const unsigned char floorTiles[3] = {0x28, 0x29, 0x2A};
 
+uint16_t camera_x, camera_y, old_camera_x, old_camera_y;
+uint8_t map_pos_x, map_pos_y, old_map_pos_x, old_map_pos_y;
+bool redraw;
 
 void interruptLCD(){
     HIDE_WIN;
@@ -45,39 +43,41 @@ void performDelay(uint8_t numloops){
 }
 
 void joyHandler(){
-
+    // Check the frame for the walking animation
+    if(frame == 2){
+        step = TRUE;
+    } else if(frame == 0){
+        step = FALSE;
+    }
+    if(step){
+        frame--;
+    } else {
+        frame++;
+    }
+    //
     if(joypad() & J_LEFT){
-        player.x -= 2;
-        player.flip = TRUE;
-        if(frame == 2){
-            step = TRUE;
-        } else if(frame == 0){
-            step = FALSE;
-        }
-        if(step){
-            frame--;
+        if(player.x > 40 || !camera_x){
+            player.x -= 2;
         } else {
-            frame++;
+            if(camera_x){
+            camera_x -= 2;
+            redraw  = TRUE;
+            }
         }
+        player.flip = TRUE;
+
     } else if(joypad() & J_RIGHT){
-        if(player.x < 80 || (reached_end)){
+        if(player.x < 80 || camera_x > camera_max_x){
             player.x += 2;
         } else {
-            updateCamera();
+            camera_x+=2;
+            if(camera_x < camera_max_x){
+                redraw = TRUE;
+            }
         }
         player.flip = FALSE;
-        if(frame == 2){
-            step = TRUE;
-        } else if(frame == 0){
-            step = FALSE;
-        }
-        if(step){
-            frame--;
-        } else {
-            frame++;
-        }
     } else {
-        frame = 0;
+        frame = 0; //Default. Idle sprite
         player.x += 0;
     }
     if ((joypad() & J_A) && !jumping){
@@ -96,11 +96,11 @@ void joyHandler(){
 void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY){
     uint16_t indexTLx, indexTLy, tileIndexTL;
 
-    indexTLx = (newPlayerX + bkg_position_offset)/8;
+    indexTLx = (newPlayerX + camera_x)/8;
     indexTLy = (newPlayerY)/8;
-    tileIndexTL = Background1Width * indexTLy + indexTLx;
+    tileIndexTL = BG1Width * indexTLy + indexTLx;
 
-    if(Background1[tileIndexTL] == floorTiles[0] || Background1[tileIndexTL] == floorTiles[1] || Background1[tileIndexTL] == floorTiles[2]){
+    if(BG1[tileIndexTL] == floorTiles[0] || BG1[tileIndexTL] == floorTiles[1] || BG1[tileIndexTL] == floorTiles[2]){
         floor_height = (indexTLy * 8) + 1;
         jumping = FALSE;
     } else {
@@ -109,30 +109,21 @@ void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY){
     }
 }
 
-// Update the tiles while moving
-void updateCamera(){
-    bkg_position_offset += 2;
-    bkg_colscroll_counter += 2;
-    scroll_bkg(2, 0);
-    if(bkg_colscroll_counter == spritesize){
-        bkg_colscroll_counter = 0;
-        if(bkg_columns_scrolled < stage_width){
-            // Only continue to render the stage if there any stage left to render
-            set_bkg_tiles(next_vram_location, 0, 1, 18, floormap_full[bkg_columns_scrolled]);
-            for(i = 0; i < 18; i++){
-                uint8_t tileIndex = (i * 32)  + next_vram_location; // It would be helpful for the apple placement
-                Background1[tileIndex] =  floormap_full[bkg_columns_scrolled][i];
-            }
-            bkg_columns_scrolled += 1;
-            if(bkg_columns_scrolled + 12 == stage_width){
-                reached_end = TRUE;
-            }
-            next_vram_location++;
-            if(next_vram_location == 32){ // Screen width limit
-                next_vram_location = 0;
+void set_camera(){
+    SCY_REG = camera_y; SCX_REG = camera_x;
+    map_pos_x = (uint8_t)(camera_x >> 3u);
+    if(map_pos_x != old_map_pos_x){
+        if(camera_x < old_camera_x){
+            set_bkg_submap(map_pos_x, map_pos_y, 1, MIN(19u, BG1Height - map_pos_y), BG1, BG1Width);
+        } else {
+            if((BG1Width - 20u) > map_pos_x){
+                set_bkg_submap(map_pos_x + 20u, map_pos_y, 1, MIN(19u, BG1Height - map_pos_y), BG1, BG1Width);
             }
         }
+        old_map_pos_x = map_pos_x;
     }
+    old_camera_x = camera_x;
+    old_camera_y = camera_y;
 }
 
 void fadeOut(){

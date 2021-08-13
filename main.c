@@ -11,11 +11,12 @@ void main(){
     ui_font = font_load(font_min);
     font_set(ui_font);
 
+    setupBackground();
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
     set_sprite_data(0, 13, Pacby_sprite);
     setupPlayer();
-    setupBackground();
+    //setupBackground();
     init();
 
     while(1){
@@ -35,6 +36,12 @@ void main(){
             player.y += 0; 
             jumping = FALSE;
         }
-        wait_vbl_done();
+        if(redraw){
+            wait_vbl_done();
+            set_camera();
+            redraw = FALSE;
+        } else {
+            wait_vbl_done();
+        }
     }
 }
