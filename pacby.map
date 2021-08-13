@@ -75,10 +75,10 @@ Area                       Addr        Size        Decimal Bytes (Attributes)
      0000001B  l__INITIA |    0000001B  l__INITIA |    0000002C  l__HEADER
      00000030  l__HEADER |    0000003A  l__GSINIT |    00000044  l__BSS   
      00000064  l__DATA   |    0000006A  l__HOME   |    00000083  l__HEADER
-     00000200  s__CODE   |    00000A15  l__BASE   |    00002075  l__CODE  
-     00002275  s__HOME   |    000022DF  s__BASE   |    00002CF4  s__CODE_0
-     00002CF4  s__INITIA |    00002CF4  s__LIT    |    00002D0F  s__GSINIT
-     00002D49  s__GSFINA |    0000C000  _shadow_O |    0000C0A0  s__DATA  
+     00000200  s__CODE   |    00000A15  l__BASE   |    00001790  l__CODE  
+     00001990  s__HOME   |    000019FA  s__BASE   |    0000240F  s__CODE_0
+     0000240F  s__INITIA |    0000240F  s__LIT    |    0000242A  s__GSINIT
+     00002464  s__GSFINA |    0000C000  _shadow_O |    0000C0A0  s__DATA  
      0000C104  s__BSS    |    0000C148  s__INITIA |    0000C163  s__HEAP  
      0000E000  .STACK    |    0000FF80  .refresh_
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
@@ -86,21 +86,21 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_CODE                  00000200    00002075 =        8309. bytes (REL,CON)
+_CODE                  00000200    00001790 =        6032. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     00000200  _Pacby_sp |    0000020D  _Pacby_sp |    000002DD  _main    
-     00000396  _interrup |    0000039D  _stage_wi |    0000039E  _floorTil
-     000003A1  _turnOnSo |    000003AE  _turnOffS |    000003B2  _init    
-     000003E1  _performD |    000003EE  _joyHandl |    000004D1  _checkFlo
-     0000055B  _set_came |    00000621  _fadeOut  |    0000065C  _jump_sfx
-     0000066D  _resetBac |    00000680  _checkCol |    00000818  _spritesi
-     00000819  _moveChar |    00000B0B  _setupPla |    00000B63  _flipSpri
-     00000BAD  _animatio |    00000C38  _setupBac |    00000C91  _TilesCGB
-     00000CA6  _Tiles    |    00000DF6  _BG1      |    00001936  _floormap
-     00002236  _putchar  |    0000223F  _setchar  |    00002248  _gotoxy  
-     00002253  _posx     |    00002264  _posy    
+     00000200  _Pacby_sp |    0000020E  _Pacby_sp |    000002EE  _main    
+     000003B1  _interrup |    000003B8  _stage_wi |    000003B9  _floorTil
+     000003BC  _turnOnSo |    000003C9  _turnOffS |    000003CD  _init    
+     000003FC  _performD |    00000409  _joyHandl |    000004EC  _checkFlo
+     00000576  _set_came |    0000063C  _fadeOut  |    00000677  _jump_sfx
+     00000688  _resetBac |    0000069B  _checkCol |    00000833  _spritesi
+     00000834  _moveChar |    00000B26  _setupPla |    00000B7E  _flipSpri
+     00000BC8  _animatio |    00000C53  _setupBac |    00000CAC  _TilesCGB
+     00000CC1  _Tiles    |    00000E11  _BG1      |    00001951  _putchar 
+     0000195A  _setchar  |    00001963  _gotoxy   |    0000196E  _posx    
+     0000197F  _posy    
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -275,44 +275,44 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_HOME                  00002275    0000006A =         106. bytes (REL,CON)
+_HOME                  00001990    0000006A =         106. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     00002275  .remove_V |    00002278  .remove_i |    00002295  .add_VBL 
-     00002298  .add_int  |    000022A3  .wait_vbl |    000022A3  _wait_vbl
-     000022B2  .display_ |    000022B2  _display_ |    000022C9  _remove_V
-     000022D4  _add_VBL 
+     00001990  .remove_V |    00001993  .remove_i |    000019B0  .add_VBL 
+     000019B3  .add_int  |    000019BE  .wait_vbl |    000019BE  _wait_vbl
+     000019CD  .display_ |    000019CD  _display_ |    000019E4  _remove_V
+     000019EF  _add_VBL 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_BASE                  000022DF    00000A15 =        2581. bytes (REL,CON)
+_BASE                  000019FA    00000A15 =        2581. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     000022DF  _font_loa |    000022E6  font_copy |    0000231C  font_copy
-     0000236B  font_load |    000023B3  font_copy |    000023FB  font_set 
-     00002408  .put_char |    00002420  .out_char |    00002426  .del_char
-     0000247C  _font_loa |    0000248A  _font_set |    00002499  _font_ini
-     000024B9  .cls      |    000024B9  _cls      |    000024EB  .cr_curs 
-     00002500  .adv_curs |    0000255C  .tmode    |    00002585  .tmode_ou
-     00002595  _set_win_ |    000025A9  _set_tile |    000025AE  _set_bkg_
-     000025AE  _set_win_ |    000025B6  _set_spri |    000025E6  _set_bkg_
-     0000262A  .set_xy_w |    00002633  .set_xy_b |    00002642  .set_xy_s
-     00002688  .padup    |    00002688  _waitpadu |    00002698  .jpad    
-     00002698  _joypad   |    000026C0  _waitpad  |    000026C3  .wait_pad
-     000026CA  _color    |    000026D9  .drawing_ |    000026E4  .drawing_
-     00002720  _add_LCD  |    0000272B  .add_LCD  |    00002731  _remove_L
-     0000273C  .remove_L |    00002742  _font_ibm |    00002AF4  _font_min
-     00002C9E  .set_xy_w |    00002CA7  .set_xy_b |    00002CB6  .set_xy_t
+     000019FA  _font_loa |    00001A01  font_copy |    00001A37  font_copy
+     00001A86  font_load |    00001ACE  font_copy |    00001B16  font_set 
+     00001B23  .put_char |    00001B3B  .out_char |    00001B41  .del_char
+     00001B97  _font_loa |    00001BA5  _font_set |    00001BB4  _font_ini
+     00001BD4  .cls      |    00001BD4  _cls      |    00001C06  .cr_curs 
+     00001C1B  .adv_curs |    00001C77  .tmode    |    00001CA0  .tmode_ou
+     00001CB0  _set_win_ |    00001CC4  _set_tile |    00001CC9  _set_bkg_
+     00001CC9  _set_win_ |    00001CD1  _set_spri |    00001D01  _set_bkg_
+     00001D45  .set_xy_w |    00001D4E  .set_xy_b |    00001D5D  .set_xy_s
+     00001DA3  .padup    |    00001DA3  _waitpadu |    00001DB3  .jpad    
+     00001DB3  _joypad   |    00001DDB  _waitpad  |    00001DDE  .wait_pad
+     00001DE5  _color    |    00001DF4  .drawing_ |    00001DFF  .drawing_
+     00001E3B  _add_LCD  |    00001E46  .add_LCD  |    00001E4C  _remove_L
+     00001E57  .remove_L |    00001E5D  _font_ibm |    0000220F  _font_min
+     000023B9  .set_xy_w |    000023C2  .set_xy_b |    000023D1  .set_xy_t
 ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
 Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_INITIALIZER           00002CF4    0000001B =          27. bytes (REL,CON)
+_INITIALIZER           0000240F    0000001B =          27. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
@@ -321,17 +321,17 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_GSINIT                00002D0F    0000003A =          58. bytes (REL,CON)
+_GSINIT                0000242A    0000003A =          58. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     00002D0F  gsinit   
+     0000242A  gsinit   
 ASxxxx Linker V03.00 + NoICE + sdld,  page 26.
 Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_GSFINAL               00002D49    00000001 =           1. bytes (REL,CON)
+_GSFINAL               00002464    00000001 =           1. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
@@ -965,7 +965,6 @@ src/characters.o                          [ characters ]
 src/Tiles.o                               [ Tiles ]
 src/entity.o                              [ entity ]
 src/BG1.o                                 [ BG1 ]
-src/floormap_full_segments.o              [ floormap_full_segments ]
 src/windowLayer.o                         [ windowLayer ]
 
 
