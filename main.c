@@ -23,11 +23,6 @@ void main(){
         joyHandler();
         animations();
         moveCharacter(&player, player.x, player.y);
-        if(player.x < 8){
-            player.x = 8;
-        }else if(player.x > 152){
-            player.x = 152;
-        }
         checkFloor(player.x, player.y);
         if(player.y != floor_height || (joypad() & J_DOWN) && player.y != 105){
             jumping = TRUE;

@@ -10,7 +10,6 @@
 #include "Pacby_sprites.h"
 #include "Tiles.h"
 #include "BG1.h"
-#include "floormap_full_segments.h"
 
 #define camera_max_x ((BG1Width - 20) * 8)
 
