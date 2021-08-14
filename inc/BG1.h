@@ -10,7 +10,7 @@
    Map size      : 160 x 18
    Tile set      : Z:\home\rafagars\Documentos\gbdk\GBTD\test.gbr
    Plane count   : 2 planes (16 bits)
-   Plane order   : Tiles are continues
+   Plane order   : Planes are continues
    Tile offset   : 37
    Split data    : No
 
@@ -24,7 +24,9 @@
 #define BG1Height 18
 #define BG1Bank 0
 
-extern const unsigned char BG1[];
+#define BG1 BG1PLN0
+extern const unsigned char BG1PLN0[];
+extern const unsigned char BG1PLN1[];
 
 #endif
 

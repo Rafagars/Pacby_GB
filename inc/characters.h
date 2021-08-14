@@ -3,6 +3,9 @@
 
 #include "functions.h"
 
+extern const UWORD spritePalette[];
+extern const UWORD BG1Pallete[];
+
 extern uint8_t i;
 extern const uint8_t spritesize;
 extern uint8_t frame;

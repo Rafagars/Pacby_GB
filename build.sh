@@ -6,7 +6,7 @@
 /opt/gbdk/bin/lcc -Wa-l -Wl-m -Wl-j -c -o src/characters.o src/characters.c
 /opt/gbdk/bin/lcc -Wa-l -Wl-m -Wl-j -c -o src/windowLayer.o src/windowLayer.c
 /opt/gbdk/bin/lcc -Wa-l -Wl-m -Wl-j -c -o main.o main.c
-/opt/gbdk/bin/lcc -Wa-l -Wl-m -Wl-j -Wm-yn"PACBY" -o pacby.gb src/Pacby_sprites.o main.o src/functions.o src/characters.o src/Tiles.o src/entity.o src/BG1.o src/windowLayer.o
+/opt/gbdk/bin/lcc -Wa-l -Wl-m -Wl-j -Wm-yn"PACBY" -Wm-yc -o pacby.gb src/Pacby_sprites.o main.o src/functions.o src/characters.o src/Tiles.o src/entity.o src/BG1.o src/windowLayer.o
 
 rm *.o *.lst *.asm *.sym
 

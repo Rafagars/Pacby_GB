@@ -1,5 +1,45 @@
 #include "../inc/characters.h"
 
+const UWORD spritePalette[]={
+/* Gameboy Color palette 0 */
+    Pacby_spriteCGBPal0c0, 
+    Pacby_spriteCGBPal0c1, 
+    Pacby_spriteCGBPal0c2, 
+    Pacby_spriteCGBPal0c3, 
+
+    /* Gameboy Color palette 1 */
+    Pacby_spriteCGBPal1c0, 
+    Pacby_spriteCGBPal1c1, 
+    Pacby_spriteCGBPal1c2, 
+    Pacby_spriteCGBPal1c3, 
+};
+
+const UWORD BG1Pallete[]={
+    /* Gameboy Color palette 0 */
+    TilesCGBPal0c0,
+    TilesCGBPal0c1,
+    TilesCGBPal0c2,
+    TilesCGBPal0c3,
+
+    /* Gameboy Color palette 1 */
+    TilesCGBPal1c0,
+    TilesCGBPal1c1,
+    TilesCGBPal1c2,
+    TilesCGBPal1c3,
+
+    /* Gameboy Color palette 2 */
+    TilesCGBPal2c0,
+    TilesCGBPal2c1,
+    TilesCGBPal2c2,
+    TilesCGBPal2c3,
+
+    /* Gameboy Color palette 3 */
+    TilesCGBPal3c0,
+    TilesCGBPal3c1,
+    TilesCGBPal3c2,
+    TilesCGBPal3c3,
+};
+
 uint8_t i;
 const uint8_t spritesize = 8;
 uint8_t frame = 0;
@@ -60,8 +100,9 @@ void setupApples(){
         apple->health = 1;
 
         // Load apple's sprite
-        set_sprite_tile(4 + i, 13);
         apple->spriteID[0] = 4+i;
+        set_sprite_tile(apple->spriteID[0], 13);
+        set_sprite_prop(apple->spriteID[0], 1);
 
         move_sprite(apple->spriteID[0], apple->x, apple->y);
         apple++;

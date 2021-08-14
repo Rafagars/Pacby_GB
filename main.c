@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include <gb/font.h>
 #include "inc/functions.h"
 
@@ -11,7 +12,16 @@ void main(){
     ui_font = font_load(font_min);
     font_set(ui_font);
 
+
     setupBackground();
+    if(_cpu == CGB_TYPE){
+        VBK_REG = 1;
+        set_win_tiles(0, 0, 20, 1, windowpalette); //Set window color palette
+        set_bkg_palette(0, 4, &BG1Pallete[0]);
+        set_bkg_tiles(0, 0, BG1Width, BG1Height, BG1PLN1);
+        set_sprite_palette(0, 3, &spritePalette[0]);
+        VBK_REG = 0;
+    }
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
     set_sprite_data(0, 14, Pacby_sprite);
