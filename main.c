@@ -16,7 +16,6 @@ void main(){
     move_win(7, 136);
     set_sprite_data(0, 13, Pacby_sprite);
     setupPlayer();
-    //setupBackground();
     init();
 
     while(1){

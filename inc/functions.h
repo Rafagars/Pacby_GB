@@ -37,7 +37,6 @@ extern void fadeIn();
 extern void resetBackground();
 
 extern void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY);
-extern void updateCamera();
 extern void set_camera();
 
 extern void jump_sfx();
