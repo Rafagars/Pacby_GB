@@ -10,11 +10,11 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 11
+  Tiles                : 0 to 13
 
-  Palette colors       : None.
+  Palette colors       : Included.
   SGB Palette          : None.
-  CGB Palette          : None.
+  CGB Palette          : 1 Byte per entry.
 
   Convert to metatiles : No.
 
@@ -27,6 +27,80 @@
 
 /* Bank of tiles. */
 #define Pacby_spriteBank 0
+
+/* Super Gameboy palette 0 */
+#define Pacby_spriteSGBPal0c0 6076
+#define Pacby_spriteSGBPal0c1 8935
+#define Pacby_spriteSGBPal0c2 6596
+#define Pacby_spriteSGBPal0c3 5344
+
+/* Super Gameboy palette 1 */
+#define Pacby_spriteSGBPal1c0 6076
+#define Pacby_spriteSGBPal1c1 8935
+#define Pacby_spriteSGBPal1c2 6596
+#define Pacby_spriteSGBPal1c3 5344
+
+/* Super Gameboy palette 2 */
+#define Pacby_spriteSGBPal2c0 6076
+#define Pacby_spriteSGBPal2c1 8935
+#define Pacby_spriteSGBPal2c2 6596
+#define Pacby_spriteSGBPal2c3 5344
+
+/* Super Gameboy palette 3 */
+#define Pacby_spriteSGBPal3c0 6076
+#define Pacby_spriteSGBPal3c1 8935
+#define Pacby_spriteSGBPal3c2 6596
+#define Pacby_spriteSGBPal3c3 5344
+
+/* Gameboy Color palette 0 */
+#define Pacby_spriteCGBPal0c0 29630
+#define Pacby_spriteCGBPal0c1 21483
+#define Pacby_spriteCGBPal0c2 16897
+#define Pacby_spriteCGBPal0c3 0
+
+/* Gameboy Color palette 1 */
+#define Pacby_spriteCGBPal1c0 31707
+#define Pacby_spriteCGBPal1c1 95
+#define Pacby_spriteCGBPal1c2 113
+#define Pacby_spriteCGBPal1c3 0
+
+/* Gameboy Color palette 2 */
+#define Pacby_spriteCGBPal2c0 6076
+#define Pacby_spriteCGBPal2c1 8935
+#define Pacby_spriteCGBPal2c2 6596
+#define Pacby_spriteCGBPal2c3 5344
+
+/* Gameboy Color palette 3 */
+#define Pacby_spriteCGBPal3c0 6076
+#define Pacby_spriteCGBPal3c1 8935
+#define Pacby_spriteCGBPal3c2 6596
+#define Pacby_spriteCGBPal3c3 5344
+
+/* Gameboy Color palette 4 */
+#define Pacby_spriteCGBPal4c0 6076
+#define Pacby_spriteCGBPal4c1 8935
+#define Pacby_spriteCGBPal4c2 6596
+#define Pacby_spriteCGBPal4c3 5344
+
+/* Gameboy Color palette 5 */
+#define Pacby_spriteCGBPal5c0 6076
+#define Pacby_spriteCGBPal5c1 8935
+#define Pacby_spriteCGBPal5c2 6596
+#define Pacby_spriteCGBPal5c3 5344
+
+/* Gameboy Color palette 6 */
+#define Pacby_spriteCGBPal6c0 6076
+#define Pacby_spriteCGBPal6c1 8935
+#define Pacby_spriteCGBPal6c2 6596
+#define Pacby_spriteCGBPal6c3 5344
+
+/* Gameboy Color palette 7 */
+#define Pacby_spriteCGBPal7c0 6076
+#define Pacby_spriteCGBPal7c1 8935
+#define Pacby_spriteCGBPal7c2 6596
+#define Pacby_spriteCGBPal7c3 5344
+/* CGBpalette entries. */
+extern const unsigned char Pacby_spriteCGB[];
 /* Start of tile array. */
 extern const unsigned char Pacby_sprite[];
 

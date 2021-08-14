@@ -20,4 +20,6 @@ typedef struct Entity
 
 extern Entity player;
 
+extern Entity apples[6];
+
 #endif

@@ -3,7 +3,7 @@
 #include "inc/functions.h"
 
 void main(){
-
+    
     //Choose font
     font_t ui_font;
 
@@ -11,23 +11,24 @@ void main(){
     ui_font = font_load(font_min);
     font_set(ui_font);
 
+    setupBackground();
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
-    set_sprite_data(0, 12, Pacby_sprite);
+    set_sprite_data(0, 14, Pacby_sprite);
     setupPlayer();
-    setupBackground();
+    setupApples();
     init();
 
     while(1){
         joyHandler();
         animations();
         moveCharacter(&player, player.x, player.y);
+        checkFloor(player.x, player.y);
         if(player.x < 8){
             player.x = 8;
         }else if(player.x > 152){
             player.x = 152;
         }
-        checkFloor(player.x, player.y);
         if(player.y != floor_height || (joypad() & J_DOWN) && player.y != 105){
             jumping = TRUE;
             player.y += 4;
@@ -35,6 +36,12 @@ void main(){
             player.y += 0; 
             jumping = FALSE;
         }
-        wait_vbl_done();
+        if(redraw){
+            wait_vbl_done();
+            set_camera();
+            redraw = FALSE;
+        } else {
+            wait_vbl_done();
+        }
     }
 }
