@@ -17,12 +17,7 @@
 
 extern bool game_on;
 extern uint8_t floor_height;
-extern bool reached_end;
-extern uint8_t bkg_position_offset;
-extern uint8_t bkg_colscroll_counter;
-extern uint8_t bkg_columns_scrolled;
 extern const uint8_t stage_width;
-extern uint8_t next_vram_location;
 extern const unsigned char floorTiles[3];
 extern uint16_t camera_x, camera_y, old_camera_x, old_camera_y;
 extern uint8_t map_pos_x, map_pos_y, old_map_pos_x, old_map_pos_y;
