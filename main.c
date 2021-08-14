@@ -16,9 +16,9 @@ void main(){
     setupBackground();
     if(_cpu == CGB_TYPE){
         VBK_REG = 1;
-        set_win_tiles(0, 0, 20, 1, windowpalette); //Set window color palette
         set_bkg_palette(0, 4, &BG1Pallete[0]);
-        set_bkg_tiles(0, 0, BG1Width, BG1Height, BG1PLN1);
+        set_bkg_tiles(0, 0, BG1Height, BG1Width, BG1PLN1);
+        set_win_tiles(0, 0, 20, 1, windowpalette); //Set window color palette
         set_sprite_palette(0, 3, &spritePalette[0]);
         VBK_REG = 0;
     }
