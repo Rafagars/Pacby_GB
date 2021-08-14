@@ -14,8 +14,9 @@ void main(){
     setupBackground();
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
-    set_sprite_data(0, 13, Pacby_sprite);
+    set_sprite_data(0, 14, Pacby_sprite);
     setupPlayer();
+    setupApples();
     init();
 
     while(1){

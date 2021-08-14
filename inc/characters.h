@@ -16,6 +16,8 @@ extern bool attack;
 extern UBYTE checkCollision(Entity* one, Entity* two);
 extern void moveCharacter(Entity* character, uint8_t x, uint8_t y);
 extern void setupPlayer();
+extern void setupApples();
+extern void updateApples(uint8_t pos);
 extern void setupBackground();
 extern void flipSprite(Entity* character);
 extern void animations();

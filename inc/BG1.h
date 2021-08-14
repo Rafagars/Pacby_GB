@@ -25,6 +25,7 @@
 #define BG1Bank 0
 
 extern const unsigned char BG1[];
+extern const unsigned char BG1_apples[];
 
 #endif
 

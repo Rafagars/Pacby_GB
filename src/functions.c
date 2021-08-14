@@ -61,6 +61,7 @@ void joyHandler(){
         } else {
             if(camera_x){
             camera_x -= 2;
+            updateApples(1);
             redraw  = TRUE;
             }
         }
@@ -73,12 +74,14 @@ void joyHandler(){
             camera_x+=2;
             if(camera_x < camera_max_x){
                 redraw = TRUE;
+                updateApples(2);
             }
         }
         player.flip = FALSE;
     } else {
         frame = 0; //Default. Idle sprite
         player.x += 0;
+        updateApples(0);
     }
     if ((joypad() & J_A) && !jumping){
         //jumping = TRUE;
