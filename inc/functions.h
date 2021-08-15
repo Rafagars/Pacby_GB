@@ -40,7 +40,7 @@ extern void checkFloor(uint8_t newPlayerX, uint8_t newPlayerY);
 extern void set_camera();
 
 extern void jump_sfx();
-extern void coinSound();
+extern void pick_up_sfx();
 extern void gameOverScreen();
 
 #endif

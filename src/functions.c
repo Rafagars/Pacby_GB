@@ -158,6 +158,14 @@ void jump_sfx(){
     NR14_REG = 0xC4;
 }
 
+void pick_up_sfx(){
+    NR10_REG = 0x32;
+    NR11_REG = 0x43;
+    NR12_REG = 0x73;
+    NR13_REG = 0x01;
+    NR14_REG = 0xC3;
+}
+
 void resetBackgrounds(){
     HIDE_WIN;
     move_bkg(0,0); // Moves background to its default position

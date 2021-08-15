@@ -92,7 +92,7 @@ void setupPlayer(){
 
 void setupApples(){
     Entity* apple = apples;
-    for(i = 0; i < 3; i++){
+    for(i = 0; i < number_of_apples; i++){
         apple->x = 84 + 12*i;
         apple->y = 92;
         apple->h = 8;
@@ -102,7 +102,7 @@ void setupApples(){
         // Load apple's sprite
         apple->spriteID[0] = 4+i;
         set_sprite_tile(apple->spriteID[0], 13);
-        set_sprite_prop(apple->spriteID[0], 1);
+        set_sprite_prop(apple->spriteID[0], 1 || S_PRIORITY);
 
         move_sprite(apple->spriteID[0], apple->x, apple->y);
         apple++;
@@ -111,7 +111,7 @@ void setupApples(){
 
 void updateApples(uint8_t pos){
     Entity* apple = apples;
-    for(i = 0; i < 3; i++){
+    for(i = 0; i < number_of_apples; i++){
         switch(pos){
             case 1:
                 apple->x += 2;
@@ -125,8 +125,12 @@ void updateApples(uint8_t pos){
         move_sprite(apple->spriteID[0], apple->x, apple->y);
         if(apple->health > 0 && checkCollision(&player, apple)){
             apple->health = 0;
+            set_sprite_tile(0, 4);
+            set_sprite_tile(2, 12);
+            pick_up_sfx();
             apple->x = 0;
             apple->y = 160;
+
         }
         apple++;
     }

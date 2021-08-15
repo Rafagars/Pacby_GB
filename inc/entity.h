@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define MAX_NUMBER_OF_APPLES 10
+
 typedef struct Entity
 {
     uint8_t spriteID[4];
@@ -20,6 +22,8 @@ typedef struct Entity
 
 extern Entity player;
 
-extern Entity apples[6];
+extern uint8_t number_of_apples;
+
+extern Entity apples[MAX_NUMBER_OF_APPLES];
 
 #endif

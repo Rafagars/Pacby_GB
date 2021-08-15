@@ -13,15 +13,16 @@ void main(){
     font_set(ui_font);
 
 
-    setupBackground();
-    if(_cpu == CGB_TYPE){
+    if(_cpu == CGB_TYPE){ //Check if it's a Game Boy Color
+        //Set colors palletes
         VBK_REG = 1;
         set_bkg_palette(0, 4, &BG1Pallete[0]);
         set_bkg_tiles(0, 0, BG1Height, BG1Width, BG1PLN1);
-        set_win_tiles(0, 0, 20, 1, windowpalette); //Set window color palette
+        set_win_tiles(0, 0, 20, 1, windowpalette); 
         set_sprite_palette(0, 3, &spritePalette[0]);
         VBK_REG = 0;
     }
+    setupBackground();
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 136);
     set_sprite_data(0, 14, Pacby_sprite);
